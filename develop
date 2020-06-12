@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+COMPOSE_FILE="dev"
+
+COMPOSE="docker-compose -f docker-compose.${COMPOSE_FILE}.yml"
+
+if [ $# -gt 0 ] ; then
+    ## if "artisan" is the first argument pass-thru to "app"
+    ## inside a new container
+    if [ "$1" == "artisan" ]; then
+        shift 1
+        $COMPOSE run --rm ${TTY} \
+        -w /var/www/html \
+         --user $(id -u):$(id -g) \
+        app \
+        php artisan "$@"
+
+    ## if "composer" is the first argument pass-thru to "composer"
+    ## inside a new container
+    elif [ "$1" == "composer" ]; then
+        shift 1
+        $COMPOSE run --rm ${TTY} \
+        -w /var/www/html \
+        --user $(id -u):$(id -g) \
+        composer \
+        composer "$@"
+
+    ## if "npm" is the first argument pass-thru to "node"
+    ## inside a new container
+    elif [ "$1" == "npm" ]; then
+        shift 1
+        $COMPOSE run --rm ${TTY} \
+        -w /var/www/html \
+        --user $(id -u):$(id -g) \
+        node \
+        npm "$@"
+    
+    ## Else, pass-thru args to docker-compose
+    else
+        $COMPOSE "$@"
+    fi
+else
+    $COMPOSE ps
+fi

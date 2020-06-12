@@ -1,0 +1,51 @@
+
+###########################################################
+########### Docker Infrastructure Setup ###################
+###########################################################
+
+###########################################################
+### Paths #################################################
+
+# Point to the path of your applications code on your host
+APP_CODE_PATH_HOST=./
+
+# Point to where the `APP_CODE_PATH_HOST` should be in the container
+APP_CODE_PATH_CONTAINER=/var/www/html/
+
+###########################################################
+### Container Image Versions ##############################
+
+PHP_VERSION=7.4
+MYSQL_VERSION=latest
+NODE_VERSION=latest
+
+###########################################################
+### NGINX #################################################
+
+NGINX_HOST_HTTP_PORT=8080
+NGINX_HOST_HTTPS_PORT=443
+NGINX_HOST_LOG_PATH=./storage/logs/nginx/
+NGINX_SITES_PATH=./docker/nginx/sites-available/
+NGINX_PHP_UPSTREAM_CONTAINER=app
+NGINX_PHP_UPSTREAM_PORT=9000
+# NGINX_SSL_PATH=./nginx/ssl/
+
+############################################################
+### MySQL ##################################################
+
+MYSQL_DATABASE=laravel
+MYSQL_USER=root
+MYSQL_PASSWORD=secret
+MYSQL_PORT=3306
+# MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
+
+############################################################
+### Drivers ################################################
+
+# All volumes driver
+VOLUMES_DRIVER=local
+
+###########################################################
+### Timezone #############################################
+
+WORKSPACE_TIMEZONE=UTC
