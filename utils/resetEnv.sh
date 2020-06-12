@@ -33,13 +33,15 @@ done
 ## Move docker-temp folder up one level to prevent deletion
 mv docker-temp/ ..
 
-# Delete contents of the environement directory
-shopt -s dotglob; rm ../environment/* -R
+# Delete contents of the Laravel-Docker-Cloud9 directory
+shopt -s dotglob; rm ../Laravel-Docker-Cloud9/* -R
 
-## Move docker-temp folder back to environment 
-mv ../docker-temp ../environment/
+## Move docker-temp folder back to Laravel-Docker-Cloud9 directory
+mv ../docker-temp ../Laravel-Docker-Cloud9/
 
 ## Move docker infrastructure files from docker-temp folder to project root 
 shopt -s dotglob; mv docker-temp/* . && rmdir docker-temp/
 
-cp docker.gitignore .gitignore
+## Reset files for Laravel-Docker-Cloud 9 Infrastructure Project 
+cp docker.gitignore .gitignore && rm docker.gitignore
+cp DOCKER_README README.md && rm DOCKER_README

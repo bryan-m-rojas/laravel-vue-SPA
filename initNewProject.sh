@@ -6,6 +6,9 @@
 ## The default C9 EBS Volume is 10GiB - resize to 20 GiB 
 chmod 777 utils/resizeEBS.sh && ./utils/resizeEBS.sh 20
 
+## Move Laravel-Docker-Cloud9 contents from folder to project root and delete folder
+shopt -s dotglob; mv ../Laravel-Docker-Cloud9/* . && rmdir ../Laravel-Docker-Cloud9/
+
 ## Check if docker-compose is installed - if not, install
 command_exists () {
     type "$1" &> /dev/null ;
@@ -69,9 +72,17 @@ sed -i 's/DB_PASSWORD=.*/DB_PASSWORD='$DATABASE_PASSWORD'/' $LARAVEL_ENV_FILE
 cat .env >> laravel/.env
 echo "Added docker env variables to $LARAVEL_ENV_FILE file (Preparing for move)"
 
-## Add Docker Env Variables to bottom of Laravel Env file to prepare for move
+## Add docker project .gitignore to laravel .gitignore
 cat .gitignore >> laravel/.gitignore
 echo "Added docker .gitignore files to laravel .gitignore file (Preparing for move)"
+
+## Copy existing .gitignore into docker.gitignore temp file
+cp .gitignore docker.gitignore
+echo "Created temp docker.gitignore file (Preparing for move)"
+
+## Copy existing README into temp DOCKER_README file
+cp README.md DOCKER_README
+echo "Created temp Docker README file (Preparing for move)"
 
 ## Move Laravel project from laravel folder to project root and delete laravel folder
 shopt -s dotglob; mv laravel/* . && rmdir laravel/
