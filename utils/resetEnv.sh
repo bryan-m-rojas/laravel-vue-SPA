@@ -13,7 +13,7 @@ sudo chown $(id -u):$(id -g) bootstrap/cache -R
 
 ##
 DOCKER_INFRA_FOLDERS=(.git/ docker/ utils/)
-DOCKER_INFRA_FILES=(develop docker-compose.dev.yml docker-env-example docker.gitignore initNewProject.sh rebuildLaunch.sh setupEnv.sh)
+DOCKER_INFRA_FILES=(develop docker-compose.dev.yml docker-env-example DOCKER_README docker.gitignore initNewProject.sh rebuildLaunch.sh setupEnv.sh)
 
 ## Make a temp folder for all Docker Infrastructure files
 mkdir docker-temp/ 
