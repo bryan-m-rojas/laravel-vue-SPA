@@ -40,6 +40,9 @@ set -a && source .env && set +a
 ## Create a New Laravel Project in the laravel folder
 chmod 777 ./develop && ./develop composer create-project --prefer-dist laravel/laravel laravel
 
+## Brings down contatiners
+./develop down 
+
 ## Checks if laravel .env file exists - if not, creates from laravel .env.example
 LARAVEL_ENV_FILE=laravel/.env
 if [ -f "$LARAVEL_ENV_FILE" ]; then
@@ -66,6 +69,10 @@ sed -i 's/DB_PASSWORD=.*/DB_PASSWORD='$DATABASE_PASSWORD'/' $LARAVEL_ENV_FILE
 cat .env >> laravel/.env
 echo "Added docker env variables to $LARAVEL_ENV_FILE file (Preparing for move)"
 
+## Add Docker Env Variables to bottom of Laravel Env file to prepare for move
+cat .gitignore >> laravel/.gitignore
+echo "Added docker .gitignore files to laravel .gitignore file (Preparing for move)"
+
 ## Move Laravel project from laravel folder to project root and delete laravel folder
 shopt -s dotglob; mv laravel/* . && rmdir laravel/
 
@@ -78,3 +85,6 @@ shopt -s dotglob; mv laravel/* . && rmdir laravel/
 ## Change Laravel Directory Permissions so that they are accesible by server
 ./develop exec app chown www-data:www-data storage -R 
 ./develop exec app chown www-data:www-data bootstrap/cache -R 
+
+## Clean up Docker 
+docker system prune -f

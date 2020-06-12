@@ -5,15 +5,15 @@
 ## (DELETES PROJECT) 
 
 ## Bring down containers and remove all dangling contianers and images
-./develop down && docker system prune -y
+./develop down && docker system prune -a -f
 
 # Change ownership of storage and bootsrap/cache folders to allow deletion
 sudo chown $(id -u):$(id -g) storage -R 
 sudo chown $(id -u):$(id -g) bootstrap/cache -R 
 
 ##
-DOCKER_INFRA_FOLDERS=(.c9/ docker/ utils/)
-DOCKER_INFRA_FILES=(develop docker-compose.dev.yml docker-env-example initNewProject.sh rebuildLaunch.sh setupEnv.sh)
+DOCKER_INFRA_FOLDERS=(.git/ docker/ utils/)
+DOCKER_INFRA_FILES=(develop docker-compose.dev.yml docker-env-example docker.gitignore initNewProject.sh rebuildLaunch.sh setupEnv.sh)
 
 ## Make a temp folder for all Docker Infrastructure files
 mkdir docker-temp/ 
@@ -41,3 +41,5 @@ mv ../docker-temp ../environment/
 
 ## Move docker infrastructure files from docker-temp folder to project root 
 shopt -s dotglob; mv docker-temp/* . && rmdir docker-temp/
+
+cp docker.gitignore .gitignore
