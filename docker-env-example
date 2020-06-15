@@ -18,6 +18,7 @@ APP_CODE_PATH_CONTAINER=/var/www/html/
 PHP_VERSION=7.4
 MYSQL_VERSION=latest
 NODE_VERSION=latest
+REDIS_VERSION=latest
 
 ###########################################################
 ### NGINX #################################################
@@ -38,6 +39,11 @@ MYSQL_USER=root
 MYSQL_PASSWORD=secret
 MYSQL_PORT=3306
 # MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
+
+############################################################
+### Redis ##################################################
+
+REDIS_PORT=6379
 
 ############################################################
 ### Drivers ################################################
