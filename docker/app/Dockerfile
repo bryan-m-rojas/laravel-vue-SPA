@@ -4,7 +4,8 @@ FROM php:${PHP_VERSION}-fpm
 ## Environment Variables
 ENV BASE_UTILS="locales apt-utils procps vim less"
 ENV BASE_LIBS="sudo curl"
-ENV PHP_EXTS="pdo pdo_mysql"
+ENV PHP_EXTS="pdo_mysql"
+ENV PECL_EXTS="redis"
 
 ## Install the BASE_UTILS 
 RUN apt-get update \
@@ -18,6 +19,13 @@ RUN apt-get update \
 
 ## Install the PHP extensions
 RUN docker-php-ext-install $PHP_EXTS
+
+## Install the Pecl extensions
+RUN apt-get update -yqq \
+    && pecl channel-update pecl.php.net \
+    && pecl install $PECL_EXTS \
+    && docker-php-ext-enable $PECL_EXTS \
+    && pecl clear-cache
 
 # Do some cleanup
 RUN apt-get clean  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

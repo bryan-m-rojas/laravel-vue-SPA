@@ -1,0 +1,8 @@
+ARG REDIS_VERSION 
+FROM redis:${REDIS_VERSION}
+
+VOLUME /data
+
+EXPOSE 6379
+
+CMD ["redis-server"]

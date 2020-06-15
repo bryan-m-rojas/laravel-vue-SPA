@@ -6,9 +6,6 @@
 ## The default C9 EBS Volume is 10GiB - resize to 20 GiB 
 chmod 777 utils/resizeEBS.sh && ./utils/resizeEBS.sh 20
 
-## Move Laravel-Docker-Cloud9 contents from folder to project root and delete folder
-shopt -s dotglob; mv ../Laravel-Docker-Cloud9/* . && rmdir ../Laravel-Docker-Cloud9/
-
 ## Check if docker-compose is installed - if not, install
 command_exists () {
     type "$1" &> /dev/null ;
@@ -67,6 +64,13 @@ sed -i 's/DB_PORT=.*/DB_PORT='$DATABASE_PORT'/' $LARAVEL_ENV_FILE
 sed -i 's/DB_DATABASE=.*/DB_DATABASE='$DATABASE_DATABASE'/' $LARAVEL_ENV_FILE
 sed -i 's/DB_USERNAME=.*/DB_USERNAME='$DATABASE_USERNAME'/' $LARAVEL_ENV_FILE
 sed -i 's/DB_PASSWORD=.*/DB_PASSWORD='$DATABASE_PASSWORD'/' $LARAVEL_ENV_FILE
+
+## Update Laravel .env file to set up proper MySQL connection - match values with MySQL container
+CACHE_HOST=redis
+
+sed -i 's/REDIS_HOST=.*/REDIS_HOST='$CACHE_HOST'/' $LARAVEL_ENV_FILE
+sed -i 's/CACHE_DRIVER=.*/CACHE_DRIVER='$CACHE_HOST'/' $LARAVEL_ENV_FILE
+sed -i 's/SESSION_DRIVER=.*/SESSION_DRIVER='$CACHE_HOST'/' $LARAVEL_ENV_FILE
 
 ## Add Docker Env Variables to bottom of Laravel Env file to prepare for move
 cat .env >> laravel/.env

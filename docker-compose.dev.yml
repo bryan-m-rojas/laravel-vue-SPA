@@ -7,7 +7,9 @@ networks:
 volumes:
   mysqldata:
     driver: ${VOLUMES_DRIVER}
-    
+  redisdata:
+    driver: ${VOLUMES_DRIVER}
+
 services:
   # Laravel App
   app:
@@ -63,7 +65,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "${MYSQL_PORT}:3306"
+      - "${MYSQL_PORT}:6379"
     environment:
       - MYSQL_DATABASE="${MYSQL_DATABASE}"
       - MYSQL_USER="${MYSQL_USER}"
@@ -103,3 +105,21 @@ services:
     working_dir: ${APP_CODE_PATH_CONTAINER}
     networks:
       - laravel-net
+  
+  # Redis Service
+  redis:
+    build:
+      context: ./docker/redis
+      dockerfile: Dockerfile
+      args: 
+        - REDIS_VERSION=${REDIS_VERSION}
+    image: bmr333/laravel.redis
+    container_name: redis
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${REDIS_PORT}:3306"
+    networks:
+      - laravel-net
+    volumes:
+      - redisdata:/data
