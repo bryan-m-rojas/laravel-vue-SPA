@@ -98,8 +98,9 @@ shopt -s dotglob; mv laravel/* . && rmdir laravel/
 ./develop up -d 
 
 ## Change Laravel Directory Permissions so that they are accesible by server
-./develop exec app chown www-data:www-data storage -R 
-./develop exec app chown www-data:www-data bootstrap/cache -R 
+./develop exec app chgrp -R www-data storage bootstrap/cache
+./develop exec app chmod -R ug+rwx storage bootstrap/cache
 
 ## Clean up Docker 
 docker system prune -f
+
