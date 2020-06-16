@@ -34,7 +34,7 @@ done
 mv docker-temp/ ..
 
 # Delete contents of the Laravel-Docker-Cloud9 directory
-shopt -s dotglob; rm ../Laravel-Docker-Cloud9/* -R
+shopt -s dotglob; sudo rm ../Laravel-Docker-Cloud9/* -R
 
 ## Move docker-temp folder back to Laravel-Docker-Cloud9 directory
 mv ../docker-temp ../Laravel-Docker-Cloud9/
