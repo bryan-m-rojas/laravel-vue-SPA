@@ -67,13 +67,11 @@ services:
     ports:
       - "${MYSQL_PORT}:3306"
     environment:
-      - MYSQL_DATABASE="${MYSQL_DATABASE}"
-      - MYSQL_USER="${MYSQL_USER}"
-      - MYSQL_PASSWORD="${MYSQL_PASSWORD}"
-      - MYSQL_ROOT_PASSWORD="${MYSQL_PASSWORD}"
-      - TZ="${WORKSPACE_TIMEZONE}"
-      - SERVICE_TAGS=dev
-      - SERVICE_NAME=mysql
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - TZ=${WORKSPACE_TIMEZONE}
     networks:
       - laravel-net
     volumes:
