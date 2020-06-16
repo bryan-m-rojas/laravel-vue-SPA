@@ -16,7 +16,7 @@ APP_CODE_PATH_CONTAINER=/var/www/html/
 ### Container Image Versions ##############################
 
 PHP_VERSION=7.4
-MYSQL_VERSION=latest
+MYSQL_VERSION=5.7
 NODE_VERSION=latest
 REDIS_VERSION=latest
 
@@ -36,7 +36,7 @@ NGINX_PHP_UPSTREAM_PORT=9000
 
 MYSQL_DATABASE=laravel
 MYSQL_USER=root
-MYSQL_PASSWORD=secret
+MYSQL_PASSWORD=root
 MYSQL_PORT=3306
 # MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
 
