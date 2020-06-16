@@ -17,7 +17,7 @@ APP_CODE_PATH_CONTAINER=/var/www/html/
 
 PHP_VERSION=7.4
 MYSQL_VERSION=5.7
-NODE_VERSION=latest
+NODE_VERSION=12.14
 REDIS_VERSION=latest
 
 ###########################################################
