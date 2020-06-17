@@ -46,4 +46,20 @@ class ContactsTest extends TestCase
         $this->assertCount(0, Contact::all());
        
     }
+    
+     /** @test */
+    public function email_is_required()
+    {
+        $response = $this->post('/api/contacts', [
+            'name' => 'Test Name',
+            'birthday' => '05/14/1988',
+            'company' => 'ABC String',
+        ]);
+        
+        $contact = Contact::first();
+        
+        $response->assertSessionHasErrors('email');
+        $this->assertCount(0, Contact::all());
+       
+    }
 }
