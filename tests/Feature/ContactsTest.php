@@ -41,7 +41,7 @@ class ContactsTest extends TestCase
     /** @test */
     public function email_must_be_a_valid_email()
     {
-        $response = $this->post('/api/contacts',
+        $response = $this->post( '/api/contacts',
             array_merge( $this->data(), ['email' => 'NOT AN EMAIL']));
           
         $response->assertSessionHasErrors('email');
@@ -53,7 +53,7 @@ class ContactsTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $response = $this->post('/api/contacts',
+        $response = $this->post( '/api/contacts',
             array_merge( $this->data()));
           
         $this->assertCount(1, Contact::all());   
@@ -61,12 +61,27 @@ class ContactsTest extends TestCase
         $this->assertEquals('05-14-1988', Contact::first()->birthday->format('m-d-Y'));
     }
     
+     /** @test */
+    public function a_contact_can_be_retrieved()
+    {
+        $contact = factory(Contact::class)->create();
+        
+        $response = $this->get( '/api/contacts/'. $contact->id);
+        
+        $response->assertJson([
+            'name' => $contact->name,
+            'email' => $contact->email,
+            'birthday' => $contact->birthday->format('Y-m-d\TH:i:s.\0\0\0\0\0\0\Z'),
+            'company' => $contact->company,
+        ]);
+    }
+        
     private function data()
     {
         return [
             'name' => 'Test Name',
             'email' => 'test@email.com',
-            'birthday' => '05/14/1988',
+            // 'birthday' => '05/14/1988',
             'company' => 'ABC String',
         ];
     }
