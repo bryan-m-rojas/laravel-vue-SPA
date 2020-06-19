@@ -1,8 +1,8 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// This file gets emptied out when using preset none.
+// (Preset none is not an option in Laravel 7 - empty manually)
 
-// Variables
-@import 'variables';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+
