@@ -56,10 +56,17 @@
                     
                 </nav>
             </div>
-            <div>
-                <div></div>
-                <div>
-                    <router-view></router-view>
+            <div class="flex flex-col flex-1 h-screen overflow-y-hidden">
+                <div class="h-16 px-6 border-b border-gray-400 flex items-center justify-between">
+                    <div>
+                        Contacts
+                    </div>
+                    <div class="rounded-full border border-gray-400 text-white bg-blue-400 w-10 h-10 flex justify-center items-center">
+                        VG
+                    </div>
+                </div>
+                <div class="flex flex-col overflow-y-hidden flex-1">
+                    <router-view class="p-6 overflow-x-hidden"></router-view>
                 </div>
             </div>
         </div>
