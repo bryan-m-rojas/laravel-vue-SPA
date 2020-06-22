@@ -11,7 +11,6 @@ if [ $# -gt 0 ] ; then
         shift 1
         $COMPOSE run --rm ${TTY} \
         -w /var/www/html \
-         --user $(id -u):$(id -g) \
         app \
         php artisan "$@"
 

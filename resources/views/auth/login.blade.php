@@ -33,7 +33,7 @@
                     Password
                 </label>
 
-                <div class="">
+                <div>
                     <input id="password" type="password" class="pt-8 w-full rounded p-3 bg-blue-800 text-gray-100 outline-none focus:bg-blue-700" name="password" autocomplete="current-password" placeholder='Password'>
 
                     @error('password')
