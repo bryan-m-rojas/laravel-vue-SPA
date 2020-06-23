@@ -2,10 +2,10 @@
     <div>
         <form @submit.prevent="submitForm">
             
-            <InputField name="name" label="Contact Name" placeholder="Contact Name" @update:field="form.name = $event"/>
-            <InputField name="email" label="Contact Email" placeholder="Contact Email" @update:field="form.email = $event"/>
-            <InputField name="company" label="Company" placeholder="Company" @update:field="form.company = $event"/>
-            <InputField name="birthday" label="Birthday" placeholder="MM/DD/YYYY" @update:field="form.birthday = $event"/>
+            <InputField name="name" label="Contact Name" :errors="errors" placeholder="Contact Name" @update:field="form.name = $event"/>
+            <InputField name="email" label="Contact Email" :errors="errors" placeholder="Contact Email" @update:field="form.email = $event"/>
+            <InputField name="company" label="Company" :errors="errors" placeholder="Company" @update:field="form.company = $event"/>
+            <InputField name="birthday" label="Birthday" :errors="errors" placeholder="MM/DD/YYYY" @update:field="form.birthday = $event"/>
 
             <div class="flex justify-end">
                 <button class="py-2 px-4 rounded text-red-700 border mr-5 hover:border-red-700">Cancel</button>
@@ -32,7 +32,9 @@
                     email: '',
                     company: '',
                     birthday: '',
-                }
+                },
+                
+                errors: null,
             };
         },
         
@@ -42,6 +44,7 @@
                     .then(response => {
                     })
                     .catch(errors => {
+                        this.errors = errors.response.data.errors;
                     });
             }
         }
