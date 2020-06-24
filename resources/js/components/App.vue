@@ -25,7 +25,7 @@
                     <p class="pt-12 text-gray-500 text-xs uppercase font-bold">
                         General
                     </p>
-                    <router-link to="/" class="flex items-center py-2 hover:text-blue-600 text-sm">
+                    <router-link to="/contacts" class="flex items-center py-2 hover:text-blue-600 text-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current text-blue-600 w-5 h-5">
                             <path class="st0" d="M20 2h-1V1c0-.6-.4-1-1-1s-1 .4-1 1v1h-4V1c0-.6-.4-1-1-1s-1 .4-1 1v1H7V1c0-.6-.4-1-1-1S5 .4 5 1v1H4C1.8 2 0 3.8 0 6v14c0 2.2 1.8 4 4 4h16c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4zM4 4h1v1c0 .6.4 1 1 1s1-.4 1-1V4h4v1c0 .6.4 1 1 1s1-.4 1-1V4h4v1c0 .6.4 1 1 1s1-.4 1-1V4h1c1.1 0 2 .9 2 2v2H2V6c0-1.1.9-2 2-2zm16 18H4c-1.1 0-2-.9-2-2V10h20v10c0 1.1-.9 2-2 2zM8 14c0 .6-.4 1-1 1H5c-.6 0-1-.4-1-1s.4-1 1-1h2c.6 0 1 .4 1 1zm6 0c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c.6 0 1 .4 1 1zm6 0c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c.6 0 1 .4 1 1zM8 18c0 .6-.4 1-1 1H5c-.6 0-1-.4-1-1s.4-1 1-1h2c.6 0 1 .4 1 1zm6 0c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c.6 0 1 .4 1 1zm6 0c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c.6 0 1 .4 1 1z"/>
                         </svg>
@@ -53,7 +53,6 @@
                             Logout
                         </div>
                     </router-link>
-                    
                 </nav>
             </div>
             <div class="flex flex-col flex-1 h-screen overflow-y-hidden">
@@ -61,9 +60,7 @@
                     <div>
                         Contacts
                     </div>
-                    <div class="rounded-full border border-gray-400 text-white bg-blue-400 w-10 h-10 flex justify-center items-center">
-                        VG
-                    </div>
+                    <UserCircle :name="user.name"/>
                 </div>
                 <div class="flex flex-col overflow-y-hidden flex-1">
                     <router-view class="p-6 overflow-x-hidden"></router-view>
@@ -75,6 +72,8 @@
 </template>
 
 <script>
+    import UserCircle from './UserCircle'; 
+
     export default {
         name: "App",
         
@@ -82,14 +81,21 @@
             'user'    
         ],
         
-        mounted() {
+        components: {
+            UserCircle,
+        },
+        
+        created() {
             window.axios.interceptors.request.use(
                 (config) => {
-                    config.data = {
-                        ...config.data,
-                        api_token: this.user.api_token
-                    };
-                    
+                    if (config.method === 'get') {
+                        config.url = config.url + '?api_token=' + this.user.api_token;
+                    } else {
+                         config.data = {
+                            ...config.data,
+                            api_token: this.user.api_token
+                         };
+                    }
                     return config;
                 }    
             );
