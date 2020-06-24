@@ -4,9 +4,9 @@
         
         <div v-else>
             <div class="flex justify-between">
-                <div class="text-blue-400">
+                <a href="#" class="text-blue-400" @click="$router.back()">
                     < Back 
-                </div>
+                </a>
                 
                 <div class="relative">
                     <router-link :to="'/contacts/' + contact.contact_id + '/edit'" class="px-4 py-2 rounded text-sm font-bold text-green-500 border border-green-500 mr-2">
@@ -69,7 +69,11 @@
                     this.loading = false;
                 })
                 .catch(error => {
-                    this.loading = false;
+                    this.loading = false
+                    
+                    if (error.response.status === 404){
+                        this.$router.push('/contacts');
+                    }
                 });
         },
         
