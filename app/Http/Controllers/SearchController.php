@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use Illuminate\Http\Request;
 use App\Http\Resources\Contact as ContactResource;
 
@@ -14,7 +15,6 @@ class SearchController extends Controller
         ]);
         
         $contacts = Contact::search($data['searchTerm'])->get();
-        
         return ContactResource::collection($contacts);
     }
 }
