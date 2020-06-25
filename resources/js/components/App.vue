@@ -77,7 +77,7 @@
 
 <script>
     import UserCircle from './UserCircle';
-    import SearchBar from '../components/SearchBar'; 
+    import SearchBar from './SearchBar'; 
 
     export default {
         name: "App",
