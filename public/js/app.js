@@ -21288,7 +21288,7 @@ var render = function() {
                 {
                   staticClass:
                     "flex items-center py-2 hover:text-blue-600 text-sm",
-                  attrs: { to: "/" }
+                  attrs: { to: "/logout" }
                 },
                 [
                   _c(
